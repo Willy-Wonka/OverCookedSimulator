@@ -7,9 +7,17 @@
 //
 
 #include <iostream>
+#include <math.h>
 
-int main(int argc, const char * argv[]) {
+using namespace std;
+
+int main(int argc, const char * argv[])
+{
+	double x = 31415.9265, fractional, integer;
+	fractional = modf(x, &integer);
+	printf("%.4lf = %.4lf + %.4lf\n", x, integer, fractional);
+		
 	// insert code here...
-	std::cout << "Hello, World!\n";
+	cout << "Hello, World!\n";
     return 0;
 }
