@@ -11,6 +11,8 @@
 #include <thread>
 using namespace std;
 
+#include "city1.hpp"
+
 void countdown(int seconds)
 {
 	clock_t start = clock();
@@ -58,8 +60,12 @@ int main(int argc, const char * argv[])
 //	int const WASH_PLATE = 3;
 	int const HAMBURGER_TIME_LIMIT = 2 * 60 + 30;	// 37.5 * 4
 	
-	thread city1(countdown, CITY1_TIMER);
-		
+	city1 c1;
+	
+	cout << "clean plate = " << c1.getCleanPlate() << endl;
+	
+	thread tCountdown(countdown, CITY1_TIMER);
+	
 	// insert code here...
 	cout << "Hello, \n";
 	
@@ -67,7 +73,7 @@ int main(int argc, const char * argv[])
 		cout << i << endl;
 	}
 	
-	city1.join();
+	tCountdown.join();
 	cout << "World!\n";
 	
     return 0;
