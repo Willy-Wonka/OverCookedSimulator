@@ -12,6 +12,7 @@
 using namespace std;
 
 #include "city1.hpp"
+#include "player.hpp"
 
 void countdown(int seconds)
 {
@@ -51,30 +52,18 @@ void countdown(int seconds)
 int main(int argc, const char * argv[])
 {
 	int const CITY1_TIMER = 300;
-//	int const CUT_TOMATO = 8;
-//	int const CUT_CABBAGE = 8;
-//	int const CUT_BEEF = 8;
-//	int const FRIED_BEEF = 21;
-//	int const DELIVER_TIME = 1;
-//	int const DINING_TIME = 10;
-//	int const WASH_PLATE = 3;
-	int const HAMBURGER_TIME_LIMIT = 2 * 60 + 30;	// 37.5 * 4
+	thread tCountdown(countdown, CITY1_TIMER);
 	
 	city1 c1;
+	player p1(mp);
+	player p2(mp);
 	
 	cout << "clean plate = " << c1.getCleanPlate() << endl;
 	
-	thread tCountdown(countdown, CITY1_TIMER);
-	
-	// insert code here...
-	cout << "Hello, \n";
-	
-	for (int i = 0; i < 500; i++) {
-		cout << i << endl;
-	}
+	thread cut(&player::cutTomato, p1);
 	
 	tCountdown.join();
-	cout << "World!\n";
+	cout << "End!\n";
 	
     return 0;
 }
