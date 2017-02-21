@@ -9,13 +9,7 @@
 #ifndef player_hpp
 #define player_hpp
 
-#include <stdio.h>
-#include <unistd.h>
-#include <iostream>
-
 #include "city1.hpp"
-
-using namespace std;
 
 enum
 {

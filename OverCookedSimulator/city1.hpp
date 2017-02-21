@@ -9,17 +9,13 @@
 #ifndef city1_hpp
 #define city1_hpp
 
-#include <stdio.h>
-
 class City1
 {
 public:
-	//	City1(int a, int b)
-	//	: cleanPlate(a), dirtyPlate(b)
-	//	{
-	//	}
+	City1(int = 300);
 	
-	City1();
+	void startGame();
+	bool isGameOver();
 	
 	int getCuttedTomato()	{ return cuttedTomato; }
 	int getCuttedCabbage()	{ return cuttedCabbage; }
@@ -57,12 +53,18 @@ public:
 	bool useDirtyPlate();
 	
 private:
+	bool gameStarted;
+	
 	int cuttedTomato;
 	int cuttedCabbage;
 	int cuttedBeef;
 	int friedBeef;
 	int cleanPlate;
 	int dirtyPlate;
+	
+	int const CITY1_TIME_LIMIT;	// default 300s
+	
+	void countdown(int);
 };
 
 #endif /* city1_hpp */

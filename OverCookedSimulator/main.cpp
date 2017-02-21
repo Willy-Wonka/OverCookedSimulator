@@ -6,88 +6,65 @@
 //  Copyright © 2017 Muscle Ye. All rights reserved.
 //
 
-#include <iostream>
-#include <cmath>
+#include <stdio.h>
+
 #include <thread>
+#include <future>
+#include <iostream>
 using namespace std;
 
 #include "city1.hpp"
 #include "player.hpp"
 
-void countdown(int seconds)
-{
-	clock_t start = clock();
-	double duration = 0;
-	int timer = 0;
-	
-	while (duration < seconds)
-	{
-		duration = (clock() - start) / (double) CLOCKS_PER_SEC;
-		double fractional, integer;
-		fractional = modf(duration, &integer);	// get the integer part
-		
-		// if pass one whole second
-		if (timer == integer)
-		{
-			int secondsLeft = seconds - timer;
-			int minutesLeft = secondsLeft / 60;
-			secondsLeft -= minutesLeft * 60;
-			
-			// print out time left in 00:00 form
-			string timeLeft = "";
-			if (minutesLeft < 10)
-				timeLeft += "0";
-			timeLeft += to_string(minutesLeft) + ":";
-			if (secondsLeft < 10)
-				timeLeft += "0";
-			timeLeft += to_string(secondsLeft) + "\n";
-			
-			cout << timeLeft;
-			
-			timer++;
-		}
-	}
-}
-
 int main(int argc, const char * argv[])
 {
-	int const CITY1_TIMER = 300;
-	thread tCountdown(countdown, CITY1_TIMER);
-	
-	City1 c1;
-	
+	int const CITY1_TIMER = 5;	// 300
+	City1 c1(CITY1_TIMER);
 	Player p1(MP_MODE);
 	Player p2(MP_MODE);
-	
-	cout << "clean plate = " << c1.getCleanPlate() << endl;
-	
 	thread tP1, tP2;
-	tP1 = thread(&Player::cutTomato, &p1, &c1);
-//	tP2 = thread(&Player::cutTomato, p2);
 	
-	for (int i = 0; i < 10; i++)
+//	future<void> fC1StartGame = async(launch::async, &City1::startGame, &c1);
+	thread tGameStart(&City1::startGame, &c1);
+//	future_status fsC1StartGame;
+	
+	while (c1.isGameOver())	{ }	// wait for game to start
+	
+	do	// run until game over
 	{
-		tP1.join();
 		tP1 = thread(&Player::cutTomato, &p1, &c1);
+		tP1.join();
+		
+//		fsC1StartGame = fC1StartGame.wait_for(chrono::seconds(0));
+//		if (fsC1StartGame == future_status::ready)	// if countdown finished
+//			break;
+		
 		cout << "We have " << c1.getCuttedTomato() << " cutted tomatoes\n";
-	}
+	} while (!c1.isGameOver());
 	
-	tP1.join();
 	cout << "We have " << c1.getCuttedTomato() << " cutted tomatoes\n";
 	
-//	{
+	if (tGameStart.joinable())
+		tGameStart.join();
 	
-//		if (tP2.joinable())
-//		{
-//			tP2.join();
-//			tP2 = thread(&Player::cutTomato, p2);
-//		}
-//	}
-	
-	
-	tCountdown.join();
-	
-	cout << "End!\n";
-	
-    return 0;
+	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

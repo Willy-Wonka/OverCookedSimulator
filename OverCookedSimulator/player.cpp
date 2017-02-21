@@ -8,6 +8,11 @@
 
 #include "player.hpp"
 
+#include <unistd.h>
+
+#include <iostream>
+using namespace std;
+
 int Player::numOfPlayers = 0;
 
 Player::Player(int mode)
@@ -37,9 +42,13 @@ Player::~Player()
 void Player::cutTomato(City1* pC1)
 {
 	cout << "start cut tomato\n";
-	usleep(cutTomatoTime * MICROSECONDS);
-	cout << "tomato cutted\n";
-	pC1->setCuttedTomato(pC1->getCuttedTomato() + 1);
+	usleep(cutTomatoTime * MICROSECONDS);	// cutting a tomato
+	
+	if (!pC1->isGameOver())
+	{
+		cout << "tomato cutted\n";
+		pC1->setCuttedTomato(pC1->getCuttedTomato() + 1);
+	}
 }
 
 void Player::singlePlayer()
