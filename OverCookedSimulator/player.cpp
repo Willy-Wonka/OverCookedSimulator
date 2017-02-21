@@ -8,14 +8,14 @@
 
 #include "player.hpp"
 
-player::player(int mode)
+Player::Player(int mode)
 {
 	switch (mode)
 	{
-		case sp:
+		case SP_MODE:
 			singlePlayer();
 			break;
-		case mp:
+		case MP_MODE:
 			multiPlayer();
 			break;
 		default:
@@ -25,12 +25,12 @@ player::player(int mode)
 	cout << "A player joined\n";
 }
 
-player::~player()
+Player::~Player()
 {
 	cout << "A player left\n";
 }
 
-void player::cutTomato(city1* c1)
+void Player::cutTomato(City1* c1)
 {
 	cout << "start cut tomato\n";
 	usleep(CUT_TOMATO * MICROSECONDS);

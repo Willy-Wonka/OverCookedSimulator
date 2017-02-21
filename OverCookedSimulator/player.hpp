@@ -18,17 +18,17 @@ using namespace std;
 
 enum
 {
-	sp,	// single player
-	mp	// multi player
+	SP_MODE,	// single player
+	MP_MODE		// multi player
 };
 
-class player
+class Player
 {
 public:
-	player(int = sp);
-	~player();
+	Player(int = SP_MODE);
+	~Player();
 	
-	void cutTomato(city1*);
+	void cutTomato(City1*);
 	
 	static int getNumOfPlayers() { return numOfPlayers;	}
 	

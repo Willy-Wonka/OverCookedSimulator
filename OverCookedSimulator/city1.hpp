@@ -11,15 +11,15 @@
 
 #include <stdio.h>
 
-class city1
+class City1
 {
 public:
-	//	city1(int a, int b)
+	//	City1(int a, int b)
 	//	: cleanPlate(a), dirtyPlate(b)
 	//	{
 	//	}
 	
-	city1()
+	City1()
 	{
 		setCuttedTomato(0);
 		setCuttedCabbage(0);
