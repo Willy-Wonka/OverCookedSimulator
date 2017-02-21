@@ -12,9 +12,10 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <iostream>
-using namespace std;
 
 #include "city1.hpp"
+
+using namespace std;
 
 enum
 {
@@ -34,40 +35,20 @@ public:
 	
 private:
 	int const MICROSECONDS = 1000000;
-	int CUT_TOMATO;
-	int CUT_CABBAGE;
-	int CUT_BEEF;
-	int FRIED_BEEF;
-	int DELIVER_TIME;
-	int DINING_TIME;
-	int WASH_PLATE;
-	int HAMBURGER_TIME_LIMIT;
+	int cutTomatoTime;
+	int cutCabbageTime;
+	int cutBeefTime;
+	int friedBeefTime;
+	int deliverTime;
+	int diningTime;
+	int washPlateTime;
+	int hamburgerWaitTime;
 	
 	static int numOfPlayers;
 	
-	void singlePlayer()
-	{
-		CUT_TOMATO = 8;
-		CUT_CABBAGE = 8;
-		CUT_BEEF = 8;
-		FRIED_BEEF = 21;
-		DELIVER_TIME = 1;
-		DINING_TIME = 10;
-		WASH_PLATE = 3;
-		HAMBURGER_TIME_LIMIT = 2 * 60 + 30;	// 37.5 * 4
-	}
+	void singlePlayer();
 	
-	void multiPlayer()
-	{
-		CUT_TOMATO = 2;
-		CUT_CABBAGE = 2;
-		CUT_BEEF = 2;
-		FRIED_BEEF = 20;
-		DELIVER_TIME = 1;
-		DINING_TIME = 10;
-		WASH_PLATE = 3;
-		HAMBURGER_TIME_LIMIT = 2 * 60 + 30;	// 37.5 * 4
-	}
+	void multiPlayer();
 	
 	
 };

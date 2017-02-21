@@ -19,15 +19,7 @@ public:
 	//	{
 	//	}
 	
-	City1()
-	{
-		setCuttedTomato(0);
-		setCuttedCabbage(0);
-		setCuttedBeef(0);
-		setFriedBeef(0);
-		setCleanPlate(2);
-		setDirtyPlate(0);
-	}
+	City1();
 	
 	int getCuttedTomato()	{ return cuttedTomato; }
 	int getCuttedCabbage()	{ return cuttedCabbage; }
@@ -42,6 +34,27 @@ public:
 	void setFriedBeef(int friedBeef)			{ this->friedBeef = friedBeef; }
 	void setCleanPlate(int cleanPlate)			{ this->cleanPlate = cleanPlate; }
 	void setDirtyPlate(int dirtyPlate)			{ this->dirtyPlate = dirtyPlate; }
+	
+	void addCuttedTomato()	{ cuttedTomato++; }
+	void addCuttedCabbage()	{ cuttedCabbage++; }
+	void addCuttedBeef()	{ cuttedBeef++; }
+	void addFriedBeef()		{ friedBeef++; }
+	void addCleanPlate()	{ cleanPlate++; }
+	void addDirtyPlate()	{ dirtyPlate++; }
+	
+	bool hasCuttedTomato()	{ return cuttedTomato > 0; }
+	bool hasCuttedCabbage()	{ return cuttedCabbage > 0; }
+	bool hasCuttedBeef()	{ return cuttedBeef > 0; }
+	bool hasFriedBeef()		{ return friedBeef > 0; }
+	bool hasCleanPlate()	{ return cleanPlate > 0; }
+	bool hasDirtyPlate()	{ return dirtyPlate > 0; }
+	
+	bool useCuttedTomato();
+	bool useCuttedCabbage();
+	bool useCuttedBeef();
+	bool useFriedBeef();
+	bool useCleanPlate();
+	bool useDirtyPlate();
 	
 private:
 	int cuttedTomato;

@@ -8,6 +8,8 @@
 
 #include "player.hpp"
 
+int Player::numOfPlayers = 0;
+
 Player::Player(int mode)
 {
 	switch (mode)
@@ -22,18 +24,44 @@ Player::Player(int mode)
 			singlePlayer();
 			break;
 	}
-	cout << "A player joined\n";
+	numOfPlayers++;
+	cout << getNumOfPlayers() << " player(s) has joined the game!\n";
 }
 
 Player::~Player()
 {
-	cout << "A player left\n";
+	numOfPlayers--;
+	cout << "A player left the game, There are " << getNumOfPlayers() << " player(s) left!\n";
 }
 
-void Player::cutTomato(City1* c1)
+void Player::cutTomato(City1* pC1)
 {
 	cout << "start cut tomato\n";
-	usleep(CUT_TOMATO * MICROSECONDS);
+	usleep(cutTomatoTime * MICROSECONDS);
 	cout << "tomato cutted\n";
-	c1->setCuttedTomato(c1->getCuttedTomato() + 1);
+	pC1->setCuttedTomato(pC1->getCuttedTomato() + 1);
+}
+
+void Player::singlePlayer()
+{
+	cutTomatoTime = 8;
+	cutCabbageTime = 8;
+	cutBeefTime = 8;
+	friedBeefTime = 21;
+	deliverTime = 1;
+	diningTime = 10;
+	washPlateTime = 3;
+	hamburgerWaitTime = 2 * 60 + 30;	// 37.5 * 4
+}
+
+void Player::multiPlayer()
+{
+	cutTomatoTime = 2;
+	cutCabbageTime = 2;
+	cutBeefTime = 2;
+	friedBeefTime = 20;
+	deliverTime = 1;
+	diningTime = 10;
+	washPlateTime = 3;
+	hamburgerWaitTime = 2 * 60 + 30;	// 37.5 * 4
 }
