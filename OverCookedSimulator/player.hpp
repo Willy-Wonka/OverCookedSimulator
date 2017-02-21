@@ -14,6 +14,8 @@
 #include <iostream>
 using namespace std;
 
+#include "city1.hpp"
+
 enum
 {
 	sp,	// single player
@@ -23,28 +25,12 @@ enum
 class player
 {
 public:
-	player (int mode = sp)
-	{
-		switch (mode)
-		{
-			case sp:
-				singlePlayer();
-				break;
-			case mp:
-				multiPlayer();
-				break;
-			default:
-				singlePlayer();
-				break;
-		}
-	}
+	player(int = sp);
+	~player();
 	
-	void cutTomato()
-	{
-		cout << "start cut tomato\n";
-		usleep(CUT_TOMATO * MICROSECONDS);
-		cout << "tomato cutted\n";
-	}
+	void cutTomato(city1*);
+	
+	static int getNumOfPlayers() { return numOfPlayers;	}
 	
 private:
 	int const MICROSECONDS = 1000000;
@@ -56,6 +42,8 @@ private:
 	int DINING_TIME;
 	int WASH_PLATE;
 	int HAMBURGER_TIME_LIMIT;
+	
+	static int numOfPlayers;
 	
 	void singlePlayer()
 	{

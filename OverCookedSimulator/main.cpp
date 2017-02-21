@@ -55,14 +55,38 @@ int main(int argc, const char * argv[])
 	thread tCountdown(countdown, CITY1_TIMER);
 	
 	city1 c1;
+	
 	player p1(mp);
 	player p2(mp);
 	
 	cout << "clean plate = " << c1.getCleanPlate() << endl;
 	
-	thread cut(&player::cutTomato, p1);
+	thread tP1, tP2;
+	tP1 = thread(&player::cutTomato, &p1, &c1);
+//	tP2 = thread(&player::cutTomato, p2);
+	
+	for (int i = 0; i < 10; i++)
+	{
+		tP1.join();
+		tP1 = thread(&player::cutTomato, &p1, &c1);
+		cout << "We have " << c1.getCuttedTomato() << " cutted tomatoes\n";
+	}
+	
+	tP1.join();
+	cout << "We have " << c1.getCuttedTomato() << " cutted tomatoes\n";
+	
+//	{
+	
+//		if (tP2.joinable())
+//		{
+//			tP2.join();
+//			tP2 = thread(&player::cutTomato, p2);
+//		}
+//	}
+	
 	
 	tCountdown.join();
+	
 	cout << "End!\n";
 	
     return 0;
