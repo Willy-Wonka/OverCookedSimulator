@@ -25,7 +25,8 @@ int main(int argc, const char * argv[])
 	thread tP1, tP2;
 	
 //	future<void> fC1StartGame = async(launch::async, &City1::startGame, &c1);
-	thread tGameStart(&City1::startGame, &c1);
+//	thread tGameStart(&City1::startGame, &c1);
+	c1.startGame();
 //	future_status fsC1StartGame;
 	
 	while (c1.isGameOver())	{ }	// wait for game to start
@@ -44,8 +45,8 @@ int main(int argc, const char * argv[])
 	
 	cout << "We have " << c1.getCuttedTomato() << " cutted tomatoes\n";
 	
-	if (tGameStart.joinable())
-		tGameStart.join();
+//	if (tGameStart.joinable())
+//		tGameStart.join();
 	
 	return 0;
 }

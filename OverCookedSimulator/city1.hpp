@@ -9,10 +9,13 @@
 #ifndef city1_hpp
 #define city1_hpp
 
+#include <thread>
+
 class City1
 {
 public:
 	City1(int = 300);
+	~City1();
 	
 	void startGame();
 	bool isGameOver();
@@ -55,6 +58,9 @@ public:
 private:
 	bool gameStarted;
 	
+	std::thread tCountdown;
+	std::thread tMakeOrders;
+	
 	int cuttedTomato;
 	int cuttedCabbage;
 	int cuttedBeef;
@@ -65,6 +71,8 @@ private:
 	int const CITY1_TIME_LIMIT;	// default 300s
 	
 	void countdown(int);
+	void makeOrders();
+	
 };
 
 #endif /* city1_hpp */

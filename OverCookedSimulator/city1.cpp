@@ -8,6 +8,8 @@
 
 #include "city1.hpp"
 
+#include <sys/time.h>
+
 #include <cmath>
 #include <iostream>
 using namespace std;
@@ -24,9 +26,18 @@ City1::City1(int seconds)
 	setDirtyPlate(0);
 }
 
+City1::~City1()
+{
+	if (tCountdown.joinable())
+		tCountdown.join();
+	if (tMakeOrders.joinable())
+		tMakeOrders.join();
+}
+
 void City1::startGame()
 {
-	countdown(CITY1_TIME_LIMIT);
+	tMakeOrders = thread(&City1::makeOrders, this);
+	tCountdown = thread(&City1::countdown, this, CITY1_TIME_LIMIT);
 }
 
 bool City1::isGameOver()
@@ -34,20 +45,36 @@ bool City1::isGameOver()
 	return !gameStarted;
 }
 
+void City1::makeOrders()
+{
+	while (isGameOver()) { }	// wait for game to start
+	
+	do // run until game over
+	{
+		//
+	} while (!isGameOver());
+	cout << "Game Over.\n";
+}
+
 void City1::countdown(int seconds)
 {
-	clock_t start = clock();
 	double duration = 0;
 	int timer = 0;
-	
 	cout << "Start!\n";
+	
+	// Elapsed Wall Time
+	struct timeval time;
+	gettimeofday(&time, NULL);
+	double startTime = (double)time.tv_sec + (double)time.tv_usec * .000001;
+	
 	gameStarted = true;
 	while (duration < seconds)
 	{
-		duration = (clock() - start) / (double) CLOCKS_PER_SEC;
+		gettimeofday(&time, NULL);
+		duration = (double)time.tv_sec + (double)time.tv_usec * .000001 - startTime;
+		
 		double fractional, integer;
 		fractional = modf(duration, &integer);	// get the integer part
-		
 		// if pass one whole second
 		if (timer == integer)
 		{
