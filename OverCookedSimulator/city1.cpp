@@ -9,10 +9,12 @@
 #include "city1.hpp"
 
 #include <sys/time.h>
+#include <unistd.h>
 
 #include <cmath>
 #include <iostream>
 using namespace std;
+
 
 City1::City1(int seconds)
 : CITY1_TIME_LIMIT(seconds)	// default 300s
@@ -24,6 +26,8 @@ City1::City1(int seconds)
 	setFriedBeef(0);
 	setCleanPlate(2);
 	setDirtyPlate(0);
+	
+	city1Orders.reserve(ORDER_SIZE);
 }
 
 City1::~City1()
@@ -43,6 +47,12 @@ void City1::startGame()
 bool City1::isGameOver()
 {
 	return !gameStarted;
+}
+
+void City1::printOrders()
+{
+	for (int i = 0; i < city1Orders.size(); i++)
+		city1Orders[i].printOrder();
 }
 
 bool City1::useCuttedTomato()
@@ -105,7 +115,14 @@ void City1::makeOrders()
 	
 	do // run until game over
 	{
-		//
+		if (city1Orders.size() < ORDER_SIZE)
+		{
+			Order order;
+			order.makeOrder();
+			city1Orders.push_back(order);
+		}
+		
+		usleep(1 * 1000000);
 	} while (!isGameOver());
 	cout << "Game Over.\n";
 }

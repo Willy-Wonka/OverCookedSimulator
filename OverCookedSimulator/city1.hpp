@@ -10,6 +10,8 @@
 #define city1_hpp
 
 #include <thread>
+#include <vector>
+#include "order.hpp"
 
 class City1
 {
@@ -19,6 +21,7 @@ public:
 	
 	void startGame();
 	bool isGameOver();
+	void printOrders();
 	
 	bool useCuttedTomato();
 	bool useCuttedCabbage();
@@ -56,6 +59,7 @@ public:
 	void setDirtyPlate(int dirtyPlate)			{ this->dirtyPlate = dirtyPlate; }
 	
 private:
+	int const ORDER_SIZE = 4;
 	int const CITY1_TIME_LIMIT;	// default 300s
 	
 	bool gameStarted;
@@ -67,6 +71,7 @@ private:
 	int cleanPlate;
 	int dirtyPlate;
 	
+	std::vector<Order> city1Orders;
 	std::thread tCountdown;
 	std::thread tMakeOrders;
 	
