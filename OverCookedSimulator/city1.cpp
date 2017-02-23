@@ -45,6 +45,60 @@ bool City1::isGameOver()
 	return !gameStarted;
 }
 
+bool City1::useCuttedTomato()
+{
+	if (!hasCuttedTomato())
+		return false;
+	else
+		cuttedTomato--;
+	return true;
+}
+
+bool City1::useCuttedCabbage()
+{
+	if (!hasCuttedCabbage())
+		return false;
+	else
+		cuttedCabbage--;
+	return true;
+}
+
+bool City1::useCuttedBeef()
+{
+	if (!hasCuttedBeef())
+		return false;
+	else
+		cuttedBeef--;
+	return true;
+}
+
+bool City1::useFriedBeef()
+{
+	if (!hasFriedBeef())
+		return false;
+	else
+		friedBeef--;
+	return true;
+}
+
+bool City1::useCleanPlate()
+{
+	if (!hasCleanPlate())
+		return false;
+	else
+		cleanPlate--;
+	return true;
+}
+
+bool City1::useDirtyPlate()
+{
+	if (!hasDirtyPlate())
+		return false;
+	else
+		dirtyPlate--;
+	return true;
+}
+
 void City1::makeOrders()
 {
 	while (isGameOver()) { }	// wait for game to start
@@ -98,60 +152,6 @@ void City1::countdown(int seconds)
 	}
 	gameStarted = false;
 	cout << "Time Out!\n";
-}
-
-bool City1::useCuttedTomato()
-{
-	if (!hasCuttedTomato())
-		return false;
-	else
-		cuttedTomato--;
-	return true;
-}
-
-bool City1::useCuttedCabbage()
-{
-	if (!hasCuttedCabbage())
-		return false;
-	else
-		cuttedCabbage--;
-	return true;
-}
-
-bool City1::useCuttedBeef()
-{
-	if (!hasCuttedBeef())
-		return false;
-	else
-		cuttedBeef--;
-	return true;
-}
-
-bool City1::useFriedBeef()
-{
-	if (!hasFriedBeef())
-		return false;
-	else
-		friedBeef--;
-	return true;
-}
-
-bool City1::useCleanPlate()
-{
-	if (!hasCleanPlate())
-		return false;
-	else
-		cleanPlate--;
-	return true;
-}
-
-bool City1::useDirtyPlate()
-{
-	if (!hasDirtyPlate())
-		return false;
-	else
-		dirtyPlate--;
-	return true;
 }
 
 

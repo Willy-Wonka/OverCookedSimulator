@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BE74F5551E579D0D007C613B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE74F5541E579D0D007C613B /* main.cpp */; };
+		BEAD6B201E5EA1D50099D2C1 /* order.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEAD6B1E1E5EA1D50099D2C1 /* order.cpp */; };
 		BEB4DB611E5814DF00B4E25A /* city1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEB4DB5F1E5814DF00B4E25A /* city1.cpp */; };
 		BEB4DB641E58C08600B4E25A /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEB4DB621E58C08600B4E25A /* player.cpp */; };
 /* End PBXBuildFile section */
@@ -27,6 +28,8 @@
 /* Begin PBXFileReference section */
 		BE74F5511E579D0D007C613B /* OverCookedSimulator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OverCookedSimulator; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE74F5541E579D0D007C613B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		BEAD6B1E1E5EA1D50099D2C1 /* order.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = order.cpp; sourceTree = "<group>"; };
+		BEAD6B1F1E5EA1D50099D2C1 /* order.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = order.hpp; sourceTree = "<group>"; };
 		BEB4DB5F1E5814DF00B4E25A /* city1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = city1.cpp; sourceTree = "<group>"; };
 		BEB4DB601E5814DF00B4E25A /* city1.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = city1.hpp; sourceTree = "<group>"; };
 		BEB4DB621E58C08600B4E25A /* player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = player.cpp; sourceTree = "<group>"; };
@@ -68,6 +71,8 @@
 				BEB4DB601E5814DF00B4E25A /* city1.hpp */,
 				BEB4DB621E58C08600B4E25A /* player.cpp */,
 				BEB4DB631E58C08600B4E25A /* player.hpp */,
+				BEAD6B1E1E5EA1D50099D2C1 /* order.cpp */,
+				BEAD6B1F1E5EA1D50099D2C1 /* order.hpp */,
 			);
 			path = OverCookedSimulator;
 			sourceTree = "<group>";
@@ -131,6 +136,7 @@
 			files = (
 				BEB4DB611E5814DF00B4E25A /* city1.cpp in Sources */,
 				BE74F5551E579D0D007C613B /* main.cpp in Sources */,
+				BEAD6B201E5EA1D50099D2C1 /* order.cpp in Sources */,
 				BEB4DB641E58C08600B4E25A /* player.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -20,15 +20,18 @@ enum
 class Player
 {
 public:
+	static int getNumOfPlayers() { return numOfPlayers;	}
+	
 	Player(int = SP_MODE);
 	~Player();
 	
 	void cutTomato(City1*);
 	
-	static int getNumOfPlayers() { return numOfPlayers;	}
-	
 private:
 	int const MICROSECONDS = 1000000;
+	
+	static int numOfPlayers;
+	
 	int cutTomatoTime;
 	int cutCabbageTime;
 	int cutBeefTime;
@@ -38,12 +41,7 @@ private:
 	int washPlateTime;
 	int hamburgerWaitTime;
 	
-	static int numOfPlayers;
-	
 	void singlePlayer();
-	
 	void multiPlayer();
-	
-	
 };
 #endif /* player_hpp */

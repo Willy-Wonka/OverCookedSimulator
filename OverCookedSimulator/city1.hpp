@@ -20,19 +20,12 @@ public:
 	void startGame();
 	bool isGameOver();
 	
-	int getCuttedTomato()	{ return cuttedTomato; }
-	int getCuttedCabbage()	{ return cuttedCabbage; }
-	int getCuttedBeef()		{ return cuttedBeef; }
-	int getFriedBeef()		{ return friedBeef; }
-	int getCleanPlate()		{ return cleanPlate; }
-	int getDirtyPlate()		{ return dirtyPlate; }
-	
-	void setCuttedTomato(int cuttedTomato)		{ this->cuttedTomato = cuttedTomato; }
-	void setCuttedCabbage(int cuttedCabbage)	{ this->cuttedCabbage = cuttedCabbage; }
-	void setCuttedBeef(int cuttedBeef)			{ this->cuttedBeef = cuttedBeef; }
-	void setFriedBeef(int friedBeef)			{ this->friedBeef = friedBeef; }
-	void setCleanPlate(int cleanPlate)			{ this->cleanPlate = cleanPlate; }
-	void setDirtyPlate(int dirtyPlate)			{ this->dirtyPlate = dirtyPlate; }
+	bool useCuttedTomato();
+	bool useCuttedCabbage();
+	bool useCuttedBeef();
+	bool useFriedBeef();
+	bool useCleanPlate();
+	bool useDirtyPlate();
 	
 	void addCuttedTomato()	{ cuttedTomato++; }
 	void addCuttedCabbage()	{ cuttedCabbage++; }
@@ -48,18 +41,24 @@ public:
 	bool hasCleanPlate()	{ return cleanPlate > 0; }
 	bool hasDirtyPlate()	{ return dirtyPlate > 0; }
 	
-	bool useCuttedTomato();
-	bool useCuttedCabbage();
-	bool useCuttedBeef();
-	bool useFriedBeef();
-	bool useCleanPlate();
-	bool useDirtyPlate();
+	int getCuttedTomato()	{ return cuttedTomato; }
+	int getCuttedCabbage()	{ return cuttedCabbage; }
+	int getCuttedBeef()		{ return cuttedBeef; }
+	int getFriedBeef()		{ return friedBeef; }
+	int getCleanPlate()		{ return cleanPlate; }
+	int getDirtyPlate()		{ return dirtyPlate; }
+	
+	void setCuttedTomato(int cuttedTomato)		{ this->cuttedTomato = cuttedTomato; }
+	void setCuttedCabbage(int cuttedCabbage)	{ this->cuttedCabbage = cuttedCabbage; }
+	void setCuttedBeef(int cuttedBeef)			{ this->cuttedBeef = cuttedBeef; }
+	void setFriedBeef(int friedBeef)			{ this->friedBeef = friedBeef; }
+	void setCleanPlate(int cleanPlate)			{ this->cleanPlate = cleanPlate; }
+	void setDirtyPlate(int dirtyPlate)			{ this->dirtyPlate = dirtyPlate; }
 	
 private:
-	bool gameStarted;
+	int const CITY1_TIME_LIMIT;	// default 300s
 	
-	std::thread tCountdown;
-	std::thread tMakeOrders;
+	bool gameStarted;
 	
 	int cuttedTomato;
 	int cuttedCabbage;
@@ -68,11 +67,11 @@ private:
 	int cleanPlate;
 	int dirtyPlate;
 	
-	int const CITY1_TIME_LIMIT;	// default 300s
+	std::thread tCountdown;
+	std::thread tMakeOrders;
 	
-	void countdown(int);
 	void makeOrders();
-	
+	void countdown(int);
 };
 
 #endif /* city1_hpp */

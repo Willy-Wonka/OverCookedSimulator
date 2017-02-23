@@ -41,6 +41,7 @@ int main(int argc, const char * argv[])
 //			break;
 		
 		cout << "We have " << c1.getCuttedTomato() << " cutted tomatoes\n";
+		
 	} while (!c1.isGameOver());
 	
 	cout << "We have " << c1.getCuttedTomato() << " cutted tomatoes\n";
