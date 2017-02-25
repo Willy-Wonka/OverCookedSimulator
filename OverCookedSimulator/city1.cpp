@@ -49,10 +49,38 @@ bool City1::isGameOver()
 	return !gameStarted;
 }
 
+vector<Order> City1::getCity1Orders()
+{
+	return city1Orders;
+}
+
 void City1::printOrders()
 {
+	string orders = "";
 	for (int i = 0; i < city1Orders.size(); i++)
-		city1Orders[i].printOrder();
+		orders += to_string(city1Orders[i].getOrder()) + "\t";
+	orders += "\n";
+	cout << orders;
+}
+
+void City1::printIngredients()
+{
+	string ingredients = "";
+	
+	if (hasCuttedBeef())
+		ingredients += "Ctd Beef: " + to_string(getCuttedBeef()) + "\t";
+	if (hasFriedBeef())
+		ingredients += "Frd Beef: " + to_string(getFriedBeef()) + "\t";
+	if (hasCuttedCabbage())
+		ingredients += "Ctd Cabbage: " + to_string(getCuttedCabbage()) + "\t";
+	if (hasCuttedTomato())
+		ingredients += "Ctd Tomato: " + to_string(getCuttedTomato()) + "\t";
+	if (hasCleanPlate())
+		ingredients += "Cln Plate: " + to_string(getCleanPlate()) + "\t";
+	if (hasDirtyPlate())
+		ingredients += "Dty Plate: " + to_string(getDirtyPlate()) + "\t";
+	ingredients += "\n";
+	cout << ingredients;
 }
 
 bool City1::useCuttedTomato()

@@ -39,6 +39,30 @@ Player::~Player()
 	cout << "A player left the game, There are " << getNumOfPlayers() << " player(s) left!\n";
 }
 
+void Player::cutBeef(City1* pC1)
+{
+	cout << "start cut Beef\n";
+	usleep(cutBeefTime * MICROSECONDS);	// cutting a tomato
+	
+	if (!pC1->isGameOver())
+	{
+		cout << "Beef cutted\n";
+		pC1->setCuttedBeef(pC1->getCuttedBeef() + 1);
+	}
+}
+
+void Player::cutCabbage(City1* pC1)
+{
+	cout << "start cut cabbage\n";
+	usleep(cutCabbageTime * MICROSECONDS);	// cutting a tomato
+	
+	if (!pC1->isGameOver())
+	{
+		cout << "cabbage cutted\n";
+		pC1->setCuttedCabbage(pC1->getCuttedCabbage() + 1);
+	}
+}
+
 void Player::cutTomato(City1* pC1)
 {
 	cout << "start cut tomato\n";
@@ -53,10 +77,10 @@ void Player::cutTomato(City1* pC1)
 
 void Player::singlePlayer()
 {
-	cutTomatoTime = 8;
-	cutCabbageTime = 8;
 	cutBeefTime = 8;
 	friedBeefTime = 21;
+	cutCabbageTime = 8;
+	cutTomatoTime = 8;
 	deliverTime = 1;
 	diningTime = 10;
 	washPlateTime = 3;
@@ -65,10 +89,10 @@ void Player::singlePlayer()
 
 void Player::multiPlayer()
 {
-	cutTomatoTime = 2;
-	cutCabbageTime = 2;
 	cutBeefTime = 2;
 	friedBeefTime = 20;
+	cutCabbageTime = 2;
+	cutTomatoTime = 2;
 	deliverTime = 1;
 	diningTime = 10;
 	washPlateTime = 3;

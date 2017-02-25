@@ -21,40 +21,42 @@ public:
 	
 	void startGame();
 	bool isGameOver();
+	std::vector<Order> getCity1Orders();
 	void printOrders();
+	void printIngredients();
 	
-	bool useCuttedTomato();
-	bool useCuttedCabbage();
 	bool useCuttedBeef();
 	bool useFriedBeef();
+	bool useCuttedCabbage();
+	bool useCuttedTomato();
 	bool useCleanPlate();
 	bool useDirtyPlate();
 	
-	void addCuttedTomato()	{ cuttedTomato++; }
-	void addCuttedCabbage()	{ cuttedCabbage++; }
 	void addCuttedBeef()	{ cuttedBeef++; }
 	void addFriedBeef()		{ friedBeef++; }
+	void addCuttedCabbage()	{ cuttedCabbage++; }
+	void addCuttedTomato()	{ cuttedTomato++; }
 	void addCleanPlate()	{ cleanPlate++; }
 	void addDirtyPlate()	{ dirtyPlate++; }
 	
-	bool hasCuttedTomato()	{ return cuttedTomato > 0; }
-	bool hasCuttedCabbage()	{ return cuttedCabbage > 0; }
 	bool hasCuttedBeef()	{ return cuttedBeef > 0; }
 	bool hasFriedBeef()		{ return friedBeef > 0; }
+	bool hasCuttedCabbage()	{ return cuttedCabbage > 0; }
+	bool hasCuttedTomato()	{ return cuttedTomato > 0; }
 	bool hasCleanPlate()	{ return cleanPlate > 0; }
 	bool hasDirtyPlate()	{ return dirtyPlate > 0; }
 	
-	int getCuttedTomato()	{ return cuttedTomato; }
-	int getCuttedCabbage()	{ return cuttedCabbage; }
 	int getCuttedBeef()		{ return cuttedBeef; }
 	int getFriedBeef()		{ return friedBeef; }
+	int getCuttedCabbage()	{ return cuttedCabbage; }
+	int getCuttedTomato()	{ return cuttedTomato; }
 	int getCleanPlate()		{ return cleanPlate; }
 	int getDirtyPlate()		{ return dirtyPlate; }
 	
-	void setCuttedTomato(int cuttedTomato)		{ this->cuttedTomato = cuttedTomato; }
-	void setCuttedCabbage(int cuttedCabbage)	{ this->cuttedCabbage = cuttedCabbage; }
 	void setCuttedBeef(int cuttedBeef)			{ this->cuttedBeef = cuttedBeef; }
 	void setFriedBeef(int friedBeef)			{ this->friedBeef = friedBeef; }
+	void setCuttedCabbage(int cuttedCabbage)	{ this->cuttedCabbage = cuttedCabbage; }
+	void setCuttedTomato(int cuttedTomato)		{ this->cuttedTomato = cuttedTomato; }
 	void setCleanPlate(int cleanPlate)			{ this->cleanPlate = cleanPlate; }
 	void setDirtyPlate(int dirtyPlate)			{ this->dirtyPlate = dirtyPlate; }
 	

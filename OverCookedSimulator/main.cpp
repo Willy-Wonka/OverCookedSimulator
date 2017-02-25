@@ -16,6 +16,12 @@ using namespace std;
 #include "city1.hpp"
 #include "player.hpp"
 
+//void p1Action(thread* tP1)
+//{
+//	(*tP1) = thread(&Player::cutTomato, &p1, &c1);
+//	tP1->join();
+//}
+
 int main(int argc, const char * argv[])
 {
 	int const CITY1_TIMER = 5;	// 300
@@ -28,17 +34,59 @@ int main(int argc, const char * argv[])
 	
 	while (c1.isGameOver())	{ }	// wait for game to start
 	
+	vector<Order> city1Orders;
 	do	// run until game over
 	{
-		tP1 = thread(&Player::cutTomato, &p1, &c1);
-		tP1.join();
+		//		p1Action(&tP1);
+		city1Orders = c1.getCity1Orders();
+		if (city1Orders.size() <= 0) continue;
+		
+		bool processing = false;
+		for (int i = 0; i < city1Orders.size(); i++)
+		{
+			int processOrder = city1Orders[i].getOrder();
+			
+			switch (processOrder)
+			{
+				case ORDER_HAMBURGER1:
+					if (c1.getCuttedBeef() < 1)
+						tP1 = thread(&Player::cutBeef, &p1, &c1);
+					processing = true;
+					break;
+				case ORDER_HAMBURGER2:
+					if (c1.getCuttedBeef() < 1)
+						tP1 = thread(&Player::cutBeef, &p1, &c1);
+					else if (c1.getCuttedCabbage() < 1)
+						tP1 = thread(&Player::cutCabbage, &p1, &c1);
+					processing = true;
+					break;
+				case ORDER_HAMBURGER3:
+					if (c1.getCuttedBeef() < 1)
+						tP1 = thread(&Player::cutBeef, &p1, &c1);
+					else if (c1.getCuttedCabbage() < 1)
+						tP1 = thread(&Player::cutCabbage, &p1, &c1);
+					else if (c1.getCuttedTomato() < 1)
+						tP1 = thread(&Player::cutTomato, &p1, &c1);
+					processing = true;
+					break;
+				default:
+					break;
+			}
+			if (processing && tP1.joinable())
+			{
+				tP1.join();
+				break;
+			}
+		}
 		
 		c1.printOrders();
-		cout << "We have " << c1.getCuttedTomato() << " cutted tomatoes\n";
+		c1.printIngredients();
 		
 	} while (!c1.isGameOver());
 	
-	cout << "We have " << c1.getCuttedTomato() << " cutted tomatoes\n";
+	
+//	if (city1Orders.size() > 0)
+		cout << "xxx " << city1Orders.size() << endl;
 	
 	return 0;
 }

@@ -64,11 +64,6 @@ bool Order::orderExpired()
 	return ((double)time.tv_sec + (double)time.tv_usec * .000001 - startTime) > WAITE_TIME ? true : false;
 }
 
-void Order::printOrder()
-{
-	std::cout << foodKind << std::endl;
-}
-
 
 
 

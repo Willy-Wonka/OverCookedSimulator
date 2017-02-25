@@ -31,7 +31,6 @@ public:
 	int makeOrder();
 	int getOrder();
 	bool orderExpired();
-	void printOrder();
 	
 private:
 	int const WAITE_TIME;	// default 37.5 * 4
