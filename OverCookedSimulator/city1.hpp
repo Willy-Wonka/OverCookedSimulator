@@ -22,6 +22,8 @@ public:
 	void startGame();
 	bool isGameOver();
 	std::vector<Order> getCity1Orders();
+	void orderDelivered(int);
+	void printTotalRevenue();
 	void printOrders();
 	void printIngredients();
 	
@@ -72,6 +74,11 @@ private:
 	int friedBeef;
 	int cleanPlate;
 	int dirtyPlate;
+	
+	int ordersDelivered;
+	int tips;
+	int ordersFailed;
+	int total;
 	
 	std::vector<Order> city1Orders;
 	std::thread tCountdown;

@@ -22,9 +22,22 @@ using namespace std;
 //	tP1->join();
 //}
 
+// player actions
+enum
+{
+	ACTION_DO_NOTHING,
+	ACTION_CUT_BEEF,
+	ACTION_CUT_CABBAGE,
+	ACTION_CUT_TOMATO,
+	ACTION_DELIVER,
+};
+
+int p1Action(vector<Order>, City1&);
+bool orderCompleted(int, City1&);
+
 int main(int argc, const char * argv[])
 {
-	int const CITY1_TIMER = 5;	// 300
+	int const CITY1_TIMER = 50;	// 300
 	City1 c1(CITY1_TIMER);
 	Player p1(MP_MODE);
 	Player p2(MP_MODE);
@@ -34,63 +47,156 @@ int main(int argc, const char * argv[])
 	
 	while (c1.isGameOver())	{ }	// wait for game to start
 	
-	vector<Order> city1Orders;
+//	vector<Order> city1Orders;
 	do	// run until game over
 	{
-		//		p1Action(&tP1);
-		city1Orders = c1.getCity1Orders();
-		if (city1Orders.size() <= 0) continue;
-		
-		bool processing = false;
-		for (int i = 0; i < city1Orders.size(); i++)
+		switch (p1Action(c1.getCity1Orders(), c1))
 		{
-			int processOrder = city1Orders[i].getOrder();
-			
-			switch (processOrder)
-			{
-				case ORDER_HAMBURGER1:
-					if (c1.getCuttedBeef() < 1)
-						tP1 = thread(&Player::cutBeef, &p1, &c1);
-					processing = true;
-					break;
-				case ORDER_HAMBURGER2:
-					if (c1.getCuttedBeef() < 1)
-						tP1 = thread(&Player::cutBeef, &p1, &c1);
-					else if (c1.getCuttedCabbage() < 1)
-						tP1 = thread(&Player::cutCabbage, &p1, &c1);
-					processing = true;
-					break;
-				case ORDER_HAMBURGER3:
-					if (c1.getCuttedBeef() < 1)
-						tP1 = thread(&Player::cutBeef, &p1, &c1);
-					else if (c1.getCuttedCabbage() < 1)
-						tP1 = thread(&Player::cutCabbage, &p1, &c1);
-					else if (c1.getCuttedTomato() < 1)
-						tP1 = thread(&Player::cutTomato, &p1, &c1);
-					processing = true;
-					break;
-				default:
-					break;
-			}
-			if (processing && tP1.joinable())
-			{
-				tP1.join();
+			case ACTION_CUT_BEEF:
+				tP1 = thread(&Player::cutBeef, &p1, &c1);
 				break;
-			}
+			case ACTION_CUT_CABBAGE:
+				tP1 = thread(&Player::cutCabbage, &p1, &c1);
+				break;
+			case ACTION_CUT_TOMATO:
+				tP1 = thread(&Player::cutTomato, &p1, &c1);
+				break;
+			case ACTION_DELIVER:
+				tP1 = thread(&Player::deliverOrder, &p1, &c1, 0);
+				break;
+			default:
+				break;
 		}
 		
-		c1.printOrders();
+		if (tP1.joinable())
+			tP1.join();
+		
+//		c1.printOrders();
 		c1.printIngredients();
 		
 	} while (!c1.isGameOver());
 	
 	
 //	if (city1Orders.size() > 0)
-		cout << "xxx " << city1Orders.size() << endl;
+//		cout << "xxx " << city1Orders.size() << endl;
 	
 	return 0;
 }
 
+int p1Action(vector<Order> city1Orders, City1& c1)
+{
+	int action = ACTION_DO_NOTHING;
+	if (city1Orders.size() <= 0) return ACTION_DO_NOTHING;
+	
+	bool hasAction = false;
+	int cuttedBeefNeeded = 1;
+	int cuttedCabbageNeeded = 1;
+	int cuttedTomatoNeeded = 1;
+	
+	if (orderCompleted(city1Orders[0].getOrder(), c1))
+		return ACTION_DELIVER;
+	
+	for (int i = 0; i < city1Orders.size(); i++)
+	{
+		int processOrder = city1Orders[i].getOrder();
+		
+		// Ingredients process
+		switch (processOrder)
+		{
+			case ORDER_HAMBURGER1:
+				if (c1.getCuttedBeef() < cuttedBeefNeeded)
+				{
+					action = ACTION_CUT_BEEF;
+					hasAction = true;
+					break;
+				}
+				else
+					cuttedBeefNeeded++;
+				
+				break;
+				
+			case ORDER_HAMBURGER2:
+				if (c1.getCuttedBeef() < cuttedBeefNeeded)
+				{
+					action = ACTION_CUT_BEEF;
+					hasAction = true;
+					break;
+				}
+				else
+					cuttedBeefNeeded++;
+				
+				if (c1.getCuttedCabbage() < cuttedCabbageNeeded)
+				{
+					action = ACTION_CUT_CABBAGE;
+					hasAction = true;
+					break;
+				}
+				else
+					cuttedCabbageNeeded++;
+				
+				break;
+				
+			case ORDER_HAMBURGER3:
+				if (c1.getCuttedBeef() < cuttedBeefNeeded)
+				{
+					action = ACTION_CUT_BEEF;
+					hasAction = true;
+					break;
+				}
+				else
+					cuttedBeefNeeded++;
+				
+				if (c1.getCuttedCabbage() < cuttedCabbageNeeded)
+				{
+					action = ACTION_CUT_CABBAGE;
+					hasAction = true;
+					break;
+				}
+				else
+					cuttedCabbageNeeded++;
+				
+				if (c1.getCuttedTomato() < cuttedTomatoNeeded)
+				{
+					action = ACTION_CUT_TOMATO;
+					hasAction = true;
+					break;
+				}
+				else
+					cuttedTomatoNeeded++;
+				
+				break;
+				
+			default:
+				break;
+		}
+		
+		if (hasAction) break;
+	}
+	
+	return action;
+}
+
+bool orderCompleted(int order, City1& c1)
+{
+	bool completed = true;
+	
+	switch (order)
+	{
+		case ORDER_HAMBURGER3:
+			if (!c1.hasCuttedTomato())
+				completed = false;
+		case ORDER_HAMBURGER2:
+			if (!c1.hasCuttedCabbage())
+				completed = false;
+		case ORDER_HAMBURGER1:
+			if (!c1.hasCuttedBeef())
+				completed = false;
+		default:
+			break;
+	}
+	
+	return completed;
+}
 
 //	future<void> fC1StartGame = async(launch::async, &City1::startGame, &c1);
 //	thread tGameStart(&City1::startGame, &c1);

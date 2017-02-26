@@ -41,7 +41,7 @@ Player::~Player()
 
 void Player::cutBeef(City1* pC1)
 {
-	cout << "start cut Beef\n";
+	cout << "Cutting Beef\n";
 	usleep(cutBeefTime * MICROSECONDS);	// cutting a tomato
 	
 	if (!pC1->isGameOver())
@@ -49,30 +49,46 @@ void Player::cutBeef(City1* pC1)
 		cout << "Beef cutted\n";
 		pC1->setCuttedBeef(pC1->getCuttedBeef() + 1);
 	}
+	usleep(COOLDOWN_MICROSECONDS);	// cooldown 0.5 seconds
 }
 
 void Player::cutCabbage(City1* pC1)
 {
-	cout << "start cut cabbage\n";
+	cout << "Cutting cabbage\n";
 	usleep(cutCabbageTime * MICROSECONDS);	// cutting a tomato
 	
 	if (!pC1->isGameOver())
 	{
-		cout << "cabbage cutted\n";
+		cout << "Cabbage cutted\n";
 		pC1->setCuttedCabbage(pC1->getCuttedCabbage() + 1);
 	}
+	usleep(COOLDOWN_MICROSECONDS);	// cooldown 0.5 seconds
 }
 
 void Player::cutTomato(City1* pC1)
 {
-	cout << "start cut tomato\n";
+	cout << "Cutting tomato\n";
 	usleep(cutTomatoTime * MICROSECONDS);	// cutting a tomato
 	
 	if (!pC1->isGameOver())
 	{
-		cout << "tomato cutted\n";
+		cout << "Tomato cutted\n";
 		pC1->setCuttedTomato(pC1->getCuttedTomato() + 1);
 	}
+	usleep(COOLDOWN_MICROSECONDS);	// cooldown 0.5 seconds
+}
+
+void Player::deliverOrder(City1* pC1, int orderNum)
+{
+	cout << "Delivering order #" << orderNum << "\n";
+	usleep(deliverTime * MICROSECONDS);	// cutting a tomato
+	
+	if (!pC1->isGameOver())
+	{
+		cout << "Order delivered\n";
+		pC1->orderDelivered(orderNum);
+	}
+	usleep(COOLDOWN_MICROSECONDS);	// cooldown 0.5 seconds
 }
 
 void Player::singlePlayer()

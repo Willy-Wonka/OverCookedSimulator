@@ -33,7 +33,7 @@ public:
 	bool orderExpired();
 	
 private:
-	int const WAITE_TIME;	// default 37.5 * 4
+	int waitTime;	// default 37.5 * 4
 	static int numOfOrders;
 	
 	int food;

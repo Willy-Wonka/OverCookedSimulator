@@ -17,7 +17,7 @@
 int Order::numOfOrders = 0;
 
 Order::Order(int food, int waitTime)
-: foodKind(food), WAITE_TIME(waitTime)
+: foodKind(food), waitTime(waitTime)
 {
 	foodKind = ORDER_HAMBURGER;
 }
@@ -61,7 +61,7 @@ bool Order::orderExpired()
 	struct timeval time;
 	gettimeofday(&time, NULL);
 	
-	return ((double)time.tv_sec + (double)time.tv_usec * .000001 - startTime) > WAITE_TIME ? true : false;
+	return ((double)time.tv_sec + (double)time.tv_usec * .000001 - startTime) > 150 ? true : false;
 }
 
 

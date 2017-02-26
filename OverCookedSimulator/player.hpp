@@ -28,9 +28,11 @@ public:
 	void cutBeef(City1*);
 	void cutTomato(City1*);
 	void cutCabbage(City1*);
+	void deliverOrder(City1*, int);
 	
 private:
-	int const MICROSECONDS = 1000000;
+	int const MICROSECONDS = 1000000;	// 1 second
+	int const COOLDOWN_MICROSECONDS = 500000;	// 0.5 seconds
 	
 	static int numOfPlayers;
 	

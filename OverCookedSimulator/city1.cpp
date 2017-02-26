@@ -28,6 +28,11 @@ City1::City1(int seconds)
 	setDirtyPlate(0);
 	
 	city1Orders.reserve(ORDER_SIZE);
+	
+	ordersDelivered = 0;
+	tips = 0;
+	ordersFailed = 0;
+	total = 0;
 }
 
 City1::~City1()
@@ -52,6 +57,30 @@ bool City1::isGameOver()
 vector<Order> City1::getCity1Orders()
 {
 	return city1Orders;
+}
+
+void City1::orderDelivered(int orderNum)
+{
+	switch (city1Orders[orderNum].getOrder())
+	{
+		case ORDER_HAMBURGER3:
+			setCuttedTomato(getCuttedTomato() - 1);
+		case ORDER_HAMBURGER2:
+			setCuttedCabbage(getCuttedCabbage() - 1);
+		case ORDER_HAMBURGER1:
+			setCuttedBeef(getCuttedBeef() - 1);
+		default:
+			break;
+	}
+	city1Orders.erase(city1Orders.begin() + orderNum);
+	ordersDelivered++;
+}
+
+void City1::printTotalRevenue()
+{
+	int totalRevenue = ordersDelivered * 20;
+	string result = "$" + to_string(totalRevenue) + "\t";
+	cout << result;
 }
 
 void City1::printOrders()
@@ -182,15 +211,17 @@ void City1::countdown(int seconds)
 			secondsLeft -= minutesLeft * 60;
 			
 			// print out time left in 00:00 form
-			string timeLeft = "";
+			string timeLeft = "\n";
 			if (minutesLeft < 10)
 				timeLeft += "0";
 			timeLeft += to_string(minutesLeft) + ":";
 			if (secondsLeft < 10)
 				timeLeft += "0";
-			timeLeft += to_string(secondsLeft) + "\n";
+			timeLeft += to_string(secondsLeft) + "\t";
 			
 			cout << timeLeft;
+			this->printTotalRevenue();
+			this->printOrders();
 			
 			timer++;
 		}
