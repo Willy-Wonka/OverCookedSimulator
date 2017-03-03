@@ -28,6 +28,7 @@ public:
 	void cutBeef(City1*);
 	void cutTomato(City1*);
 	void cutCabbage(City1*);
+	void cleanPlate(City1*);
 	void deliverOrder(City1*, int);
 	
 private:

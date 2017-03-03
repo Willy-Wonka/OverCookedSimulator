@@ -22,7 +22,7 @@ public:
 	void startGame();
 	bool isGameOver();
 	std::vector<Order> getCity1Orders();
-	void orderDelivered(int);
+	void orderNumDelivered(int);
 	void printTotalRevenue();
 	void printOrders();
 	void printIngredients();

@@ -78,6 +78,21 @@ void Player::cutTomato(City1* pC1)
 	usleep(COOLDOWN_MICROSECONDS);	// cooldown 0.5 seconds
 }
 
+void Player::cleanPlate(City1* pC1)
+{
+	cout << "Cleaning plate\n";
+	usleep(washPlateTime * MICROSECONDS);	// washing a plate
+	
+	if (!pC1->isGameOver())
+	{
+		cout << "Plate cleaned\n";
+		pC1->setCleanPlate(pC1->getCleanPlate() + 1);
+		pC1->useDirtyPlate();
+	}
+	usleep(COOLDOWN_MICROSECONDS);	// cooldown 0.5 seconds
+}
+
+
 void Player::deliverOrder(City1* pC1, int orderNum)
 {
 	cout << "Delivering order #" << orderNum << "\n";
@@ -86,7 +101,7 @@ void Player::deliverOrder(City1* pC1, int orderNum)
 	if (!pC1->isGameOver())
 	{
 		cout << "Order delivered\n";
-		pC1->orderDelivered(orderNum);
+		pC1->orderNumDelivered(orderNum);
 	}
 	usleep(COOLDOWN_MICROSECONDS);	// cooldown 0.5 seconds
 }

@@ -29,6 +29,7 @@ enum
 	ACTION_CUT_BEEF,
 	ACTION_CUT_CABBAGE,
 	ACTION_CUT_TOMATO,
+	ACTION_CLEAN_PLATE,
 	ACTION_DELIVER,
 };
 
@@ -61,6 +62,9 @@ int main(int argc, const char * argv[])
 			case ACTION_CUT_TOMATO:
 				tP1 = thread(&Player::cutTomato, &p1, &c1);
 				break;
+			case ACTION_CLEAN_PLATE:
+				tP1 = thread(&Player::cleanPlate, &p1, &c1);
+				break;
 			case ACTION_DELIVER:
 				tP1 = thread(&Player::deliverOrder, &p1, &c1, 0);
 				break;
@@ -92,6 +96,7 @@ int p1Action(vector<Order> city1Orders, City1& c1)
 	int cuttedBeefNeeded = 1;
 	int cuttedCabbageNeeded = 1;
 	int cuttedTomatoNeeded = 1;
+	int cleanPlateNeeded = 1;
 	
 	if (orderCompleted(city1Orders[0].getOrder(), c1))
 		return ACTION_DELIVER;
@@ -113,6 +118,18 @@ int p1Action(vector<Order> city1Orders, City1& c1)
 				else
 					cuttedBeefNeeded++;
 				
+				if (c1.getCleanPlate() < cleanPlateNeeded)
+				{
+					if (c1.getDirtyPlate() > 0)
+					{
+						action = ACTION_CLEAN_PLATE;
+						hasAction = true;
+						break;
+					}
+				}
+				else
+					cleanPlateNeeded++;
+				
 				break;
 				
 			case ORDER_HAMBURGER2:
@@ -133,6 +150,18 @@ int p1Action(vector<Order> city1Orders, City1& c1)
 				}
 				else
 					cuttedCabbageNeeded++;
+				
+				if (c1.getCleanPlate() < cleanPlateNeeded)
+				{
+					if (c1.getDirtyPlate() > 0)
+					{
+						action = ACTION_CLEAN_PLATE;
+						hasAction = true;
+						break;
+					}
+				}
+				else
+					cleanPlateNeeded++;
 				
 				break;
 				
@@ -164,6 +193,18 @@ int p1Action(vector<Order> city1Orders, City1& c1)
 				else
 					cuttedTomatoNeeded++;
 				
+				if (c1.getCleanPlate() < cleanPlateNeeded)
+				{
+					if (c1.getDirtyPlate() > 0)
+					{
+						action = ACTION_CLEAN_PLATE;
+						hasAction = true;
+						break;
+					}
+				}
+				else
+					cleanPlateNeeded++;
+				
 				break;
 				
 			default:
@@ -192,6 +233,8 @@ bool orderCompleted(int order, City1& c1)
 			if (!c1.hasCuttedBeef())
 				completed = false;
 		default:
+			if (!c1.hasCleanPlate())
+				completed = false;
 			break;
 	}
 	

@@ -59,7 +59,7 @@ vector<Order> City1::getCity1Orders()
 	return city1Orders;
 }
 
-void City1::orderDelivered(int orderNum)
+void City1::orderNumDelivered(int orderNum)
 {
 	switch (city1Orders[orderNum].getOrder())
 	{
@@ -70,6 +70,8 @@ void City1::orderDelivered(int orderNum)
 		case ORDER_HAMBURGER1:
 			setCuttedBeef(getCuttedBeef() - 1);
 		default:
+			useCleanPlate();
+			setDirtyPlate(getDirtyPlate() + 1);
 			break;
 	}
 	city1Orders.erase(city1Orders.begin() + orderNum);
